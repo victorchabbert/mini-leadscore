@@ -3,14 +3,22 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { dashboardRoutes } from './dashboard-routing.module';
+import { ContactsModule } from './contacts/contacts.module';
+import { DashboardHomeComponent } from './dashboard-home.component';
+import { AuthGuard } from '../authentication/auth.guard';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule,
+    ContactsModule,
+    dashboardRoutes,
   ],
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, DashboardHomeComponent],
+  providers: [
+    AuthGuard,
+  ],
   exports: [
     DashboardComponent
   ]
