@@ -5,7 +5,7 @@
         <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Name</th>
         <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Email</th>
         <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Phone</th>
-        <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Gender</th>
+        <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-gender">Gender</th>
       </tr>
     </thead>
     <!-- calc:(screen - header - table header) -->
@@ -14,8 +14,11 @@
         <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">{{ contact.first_name }} {{ contact.last_name }}</td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">{{ contact.email }}</td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">{{ contact.phone }}</td>
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">
-          {{ contact.gender }}
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-gender">
+          <i class="mdi" [ngClass]="{
+            'mdi-gender-female': contact.gender === 'Female',
+            'mdi-gender-male': contact.gender === 'Male'
+            }"></i>
         </td>
       </tr>
     </tbody>

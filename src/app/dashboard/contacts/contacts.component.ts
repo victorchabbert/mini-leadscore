@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
     .ls-fmw {
       flex: 1 0 100px;
     }
+    .ls-gender {
+      width: 70px;
+      padding-right: 15px;
+      text-align: center;
+    }
   `]
 })
 export class ContactsComponent implements OnInit {
