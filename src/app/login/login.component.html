@@ -1,0 +1,56 @@
+<div class="vh-100 flex bg-red bg-center" style="background: url('/assets/login-bg.jpg')">
+  <div class="w-34-ns w-50-m w-100 h100 bg-white pa4 flex flex-column justify-center ">
+    <img src="/assets/login-panel-logo.png" class="pb3" alt="Leadscore">
+    <main class="black-80">
+      <form name="log_in" (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="measure center">
+        <fieldset id="log_in" class="ba b--transparent ph0 mh0">
+          <legend class="f3 fw6 ph0 mh0 center">Log In</legend>
+          <p class="lh-copy f6 pv2">Need an account ? <a routerLink="/login">Create one now !</a></p>
+          <div class="mt3">
+            <label class="db fw6 lh-copy f6" for="email">
+              Email <span *ngIf="checkError('email', 'required')" class="fr normal red">required</span>
+            </label>
+            <input
+              [class.b--red]="!loginForm.controls['email'].valid && loginForm.controls['email'].touched"
+              formControlName="email"
+              required
+              class="pa2 input-reset ba b--silver w-100" type="email" name="email" id="email">
+            <small
+              class="f6 lh-copy black-60 db mb2 red"
+              *ngIf="checkError('email', 'email')"
+            >Must be a valid email.</small>
+          </div>
+          <div class="mv3">
+            <label class="db fw6 lh-copy f6" for="password">
+              Password <span *ngIf="checkError('password', 'required')" class="fr normal red">required</span>
+            </label>
+            <input
+              [class.b--red]="!loginForm.controls['password'].valid && loginForm.controls['password'].touched"
+              formControlName="password"
+              required
+              class="b pa2 input-reset ba b--silver w-100" type="password" name="password"  id="password">
+            <!--<small
+              class="f6 lh-copy black-60 db mb2 red"
+              *ngIf="checkError('password', 'required')"
+              >
+              Password is required
+            </small>-->
+          </div>
+        </fieldset>
+        <div class="">
+          <button
+            class="b w-100 bn lh-copy pv2 input-reset white pointer f6 dib"
+            [disabled]="!loginForm.valid"
+            [ngClass]="{
+              'bg-light-silver': !loginForm.valid,
+              'hover-bg-gray': !loginForm.valid,
+              'bg-blue': loginForm.valid,
+              'hover-bg-dark-blue': loginForm.valid
+            }"
+            type="submit"
+          >Log in</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
