@@ -1,4 +1,17 @@
-<ls-header title="Dashboard"></ls-header>
-<p>
-  dashboard works!
-</p>
+<div class="vh-100 overflow-hidden">
+  <ls-header title="Dashboard"></ls-header>
+  <aside class="flex w3 h-100 flex-column bg-near-white">
+    <a class="no-underline gray hover-dark-gray hover-bg-light-gray" routerLink="/dashboard">
+      <div class="h3 flex flex-column items-center justify-center bb b--light-gray">
+        <i class="material-icons">dashboard</i>
+        <p class="ma0 pt1 lh-copy fw6" style="font-size: .7em">Dashboard</p>
+      </div>
+    </a>
+    <a class="no-underline gray hover-dark-gray hover-bg-light-gray" routerLink="/dashboard/contacts">
+      <div class="h3 flex flex-column items-center justify-center bb b--light-gray">
+        <i class="material-icons f3">contacts</i>
+        <p class="ma0 pt1 lh-copy fw6" style="font-size: .7em">Contacts</p>
+      </div>
+    </a>
+  </aside>
+</div>
