@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { routing } from './app-routing.module';
 import { AuthGuard } from './authentication/auth.guard';
 import { AuthenticationService } from './authentication/authentication.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   imports: [
@@ -15,11 +17,12 @@ import { AuthenticationService } from './authentication/authentication.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    DashboardModule,
     routing
   ],
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
   ],
   providers: [
     AuthGuard,
