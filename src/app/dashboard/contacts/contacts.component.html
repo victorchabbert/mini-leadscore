@@ -10,15 +10,20 @@
     </thead>
     <!-- calc:(screen - header - table header) -->
     <tbody class="lh-copy db overflow-y-auto overflow-x-hidden" style="height: calc(100vh - 64px - 32px)">
-      <tr *ngFor="let contact of contacts" class="flex row nowrap">
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">{{ contact.first_name }} {{ contact.last_name }}</td>
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">{{ contact.email }}</td>
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">{{ contact.phone }}</td>
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-gender">
+      <tr *ngFor="let contact of contacts" class="flex row nowrap pointer hover-bg-near-white" (click)="log(contact)">
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">{{ contact.first_name }} {{ contact.last_name }}</td>
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">
+          <a class="navy no-underline underline-hover" href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+        </td>
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">
+          <a class="navy no-underline underline-hover" href="{{ contact.phone }}">{{ contact.phone }}</a>
+        </td>
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate gray ls-gender">
           <i class="mdi" [ngClass]="{
             'mdi-gender-female': contact.gender === 'Female',
             'mdi-gender-male': contact.gender === 'Male'
             }"></i>
+          <span class="ma0 f6 fw6">{{contact.gender === 'Female' ? 'F': 'M'}}</span>
         </td>
       </tr>
     </tbody>

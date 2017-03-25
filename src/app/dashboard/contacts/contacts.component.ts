@@ -29,4 +29,7 @@ export class ContactsComponent implements OnInit {
     req.send();
   }
 
+  log(contact) {
+    console.info('Click on contact:', contact);
+  }
 }
