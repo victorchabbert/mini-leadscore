@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginUser } from './LoginUser';
+import { defaultIfEmpty } from 'rxjs/operator/defaultIfEmpty';
 
 @Component({
   selector: 'ls-login',
@@ -13,14 +14,10 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   loginForm: FormGroup;
   user = new LoginUser('', '');
-
-  formErrors = {
-    'email': '',
-    'password': ''
-  };
+  serverMessage = '';
 
   validationMessages = {
-    'email': {
+    'username': {
       'required': 'Email is required.',
       'email': 'Must be a valid email.'
     },
@@ -41,18 +38,13 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
     this.loginForm = this.fb.group({
-      'email': [this.user.email, [
+      'username': [this.user.username, [
           Validators.required,
           Validators.email
         ]
       ],
       'password': [this.user.password, Validators.required]
     });
-
-    this.loginForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
-
-    this.onValueChanged();
   }
 
   onSubmit() {
@@ -62,31 +54,34 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
-    this.authenticationService.login(this.user.email, this.user.password)
+    this.serverMessage = '';
+    this.authenticationService.login(this.user.username, this.user.password)
       .subscribe(
         data => this.router.navigate([this.returnUrl]),
         error => {
           this.loading = false;
           console.error('login', error);
+          this.handleServerErrors(error.json());
         }
       );
   }
 
-  onValueChanged(data?: any) {
+  handleServerErrors(data) {
+    console.log(data);
     if (!this.loginForm) { return; }
-    const form = this.loginForm;
 
-    for (const field in this.formErrors) {
-      this.formErrors[field] = '';
-      const control = form.get(field);
+    const key = data && data.message;
+    if (!key) { return; }
 
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
+    switch (key) {
+      case 'login.user.not_found':
+        return this.serverMessage = 'User does not exist.';
+      case 'login.user.invalid_password':
+        return this.serverMessage = 'Password does not match.';
+      default:
+        return this.serverMessage = '';
     }
+
   }
 
   checkError(field: string, type: string) {

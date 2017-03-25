@@ -6,18 +6,19 @@
         <fieldset id="log_in" class="ba b--transparent ph0 mh0">
           <legend class="f3 fw6 ph0 mh0 center">Log In</legend>
           <p class="lh-copy f6 pv2">Need an account ? <a routerLink="/login">Create one now !</a></p>
+          <div class="white br1 bg-red ba b--dark-red pa3" *ngIf="serverMessage.length > 0">{{ serverMessage }}</div>
           <div class="mt3">
             <label class="db fw6 lh-copy f6" for="email">
-              Email <span *ngIf="checkError('email', 'required')" class="fr normal red">required</span>
+              Email <span *ngIf="checkError('username', 'required')" class="fr normal red">required</span>
             </label>
             <input
-              [class.b--red]="!loginForm.controls['email'].valid && loginForm.controls['email'].touched"
-              formControlName="email"
+              [class.b--red]="!loginForm.controls['username'].valid && loginForm.controls['username'].touched"
+              formControlName="username"
               required
               class="pa2 input-reset ba b--silver w-100" type="email" name="email" id="email">
             <small
               class="f6 lh-copy black-60 db mb2 red"
-              *ngIf="checkError('email', 'email')"
+              *ngIf="checkError('username', 'email')"
             >Must be a valid email.</small>
           </div>
           <div class="mv3">
