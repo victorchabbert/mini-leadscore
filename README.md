@@ -19,6 +19,9 @@ To change the port, run `ng serve --port <PORT>`.
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
+You can run `python -m SimpleHTTPServer` in the dist folder for a quick server.
+If you do so, don't forget to change the API path and base in the prod environment config!
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
