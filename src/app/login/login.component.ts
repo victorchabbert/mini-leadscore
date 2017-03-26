@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 @Component({
   selector: 'ls-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loading = false;
@@ -15,16 +16,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user: LoginData = { username: '', password: '' };
   serverMessage = '';
-
-  validationMessages = {
-    'username': {
-      'required': 'Email is required.',
-      'email': 'Must be a valid email.'
-    },
-    'password': {
-      'required': 'Password is required.'
-    }
-  };
 
   constructor(
     private route: ActivatedRoute,
@@ -56,7 +47,6 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.serverMessage = '';
     this.authenticationService.login(this.user)
-      .map(res => res.json())
       .subscribe(
         data => this.router.navigate([this.returnUrl]),
         error => {
@@ -67,7 +57,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleServerErrors(data) {
-    console.log(data);
     if (!this.loginForm) { return; }
 
     const key = data && data.message;
@@ -78,6 +67,10 @@ export class LoginComponent implements OnInit {
         return this.serverMessage = 'User does not exist.';
       case 'login.user.invalid_password':
         return this.serverMessage = 'Password does not match.';
+      case 'login.validation.no_username':
+        return this.serverMessage = 'Email is needed to log in.';
+      case 'login.validation.no_password':
+        return this.serverMessage = 'Password is needed to log in.';
       default:
         return this.serverMessage = '';
     }
