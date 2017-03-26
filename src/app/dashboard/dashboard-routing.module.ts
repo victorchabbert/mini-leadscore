@@ -3,12 +3,12 @@ import { DashboardComponent } from './dashboard.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { DashboardHomeComponent } from './dashboard-home.component';
 import { ModuleWithProviders } from '@angular/core';
-import { AuthGuard } from '../authentication/auth.guard';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthenticationService],
     children: [
       { path: '', component: DashboardHomeComponent, pathMatch: 'full' },
       { path: 'contacts', component: ContactsComponent },

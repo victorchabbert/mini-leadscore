@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { dashboardRoutes } from './dashboard-routing.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { DashboardHomeComponent } from './dashboard-home.component';
-import { AuthGuard } from '../authentication/auth.guard';
 
 @NgModule({
   imports: [
@@ -17,7 +16,6 @@ import { AuthGuard } from '../authentication/auth.guard';
   ],
   declarations: [DashboardComponent, DashboardHomeComponent],
   providers: [
-    AuthGuard,
   ],
   exports: [
     DashboardComponent

@@ -2,7 +2,7 @@
   <div class="w-34-ns w-50-m w-100 h100 bg-white pa4 flex flex-column justify-center ">
     <img src="/assets/login-panel-logo.png" class="pb3" alt="Leadscore">
     <main class="black-80">
-      <form name="log_in" (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="measure center">
+      <form name="log_in" (ngSubmit)="onSubmit($event)" [formGroup]="loginForm" class="measure center">
         <fieldset id="log_in" class="ba b--transparent ph0 mh0">
           <legend class="f3 fw6 ph0 mh0 center">Log In</legend>
           <p class="lh-copy f6 pv2">Need an account ? <a routerLink="/login">Create one now !</a></p>
@@ -15,10 +15,10 @@
               [class.b--red]="!loginForm.controls['username'].valid && loginForm.controls['username'].touched"
               formControlName="username"
               required
-              class="pa2 input-reset ba b--silver w-100" type="email" name="email" id="email">
+              class="pa2 input-reset ba b--silver w-100" type="email" name="username" id="email">
             <small
               class="f6 lh-copy black-60 db mb2 red"
-              *ngIf="checkError('username', 'email')"
+              *ngIf="checkError('username', 'username')"
             >Must be a valid email.</small>
           </div>
           <div class="mv3">

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginUser } from './LoginUser';
-import { defaultIfEmpty } from 'rxjs/operator/defaultIfEmpty';
+import { LoginData } from '../authentication/authentication.model';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'ls-login',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   returnUrl: string;
   loginForm: FormGroup;
-  user = new LoginUser('', '');
+  user: LoginData = { username: '', password: '' };
   serverMessage = '';
 
   validationMessages = {
@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authenticationService.logout();
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = localStorage.getItem('returnUrl') || '/';
 
     this.loginForm = this.fb.group({
       'username': [this.user.username, [
@@ -47,7 +46,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     this.user = this.loginForm.value;
     this.login();
   }
@@ -55,12 +55,12 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
     this.serverMessage = '';
-    this.authenticationService.login(this.user.username, this.user.password)
+    this.authenticationService.login(this.user)
+      .map(res => res.json())
       .subscribe(
         data => this.router.navigate([this.returnUrl]),
         error => {
           this.loading = false;
-          console.error('login', error);
           this.handleServerErrors(error.json());
         }
       );

@@ -6,9 +6,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { routing } from './app-routing.module';
-import { AuthGuard } from './authentication/auth.guard';
 import { AuthenticationService } from './authentication/authentication.service';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { LogoutComponent } from './login/logout.component';
 
 @NgModule({
   imports: [
@@ -22,9 +22,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
   declarations: [
     AppComponent,
     LoginComponent,
+    LogoutComponent,
   ],
   providers: [
-    AuthGuard,
     AuthenticationService
   ],
   bootstrap: [AppComponent]
