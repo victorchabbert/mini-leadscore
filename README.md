@@ -2,13 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
+## Installing
+
+Run `yarn` or `npm install` in the root folder of this project.
+
+In `src/environments/`, make sure you have the correct API url.
+Also, make sure your IP is whitelisted for CORS. If not, you can create a proxy server or use [corsproxy](https://github.com/gr2m/CORS-Proxy).
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+To change the port, run `ng serve --port <PORT>`.
 
 ## Build
 
