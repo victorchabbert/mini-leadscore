@@ -10,8 +10,22 @@
       </tr>
     </thead>
     <!-- calc:(screen - header - table header) -->
-    <tbody class="lh-copy db overflow-y-auto overflow-x-hidden" style="height: calc(100vh - 64px - 32px)">
-      <tr *ngFor="let contact of contacts" class="flex row nowrap pointer hover-bg-near-white" (click)="log(contact)">
+    <tbody
+      class="lh-copy db overflow-x-hidden"
+      style="height: calc(100vh - 64px - 32px)"
+      infinite-scroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="300"
+      [infiniteScrollContainer]="contactList"
+      [scrollWindow]="false"
+      (scrolled)="onScrollDown()"
+    >
+      <tr
+        #contactList
+        *ngFor="let contact of contacts"
+        class="flex row nowrap pointer hover-bg-near-white"
+        (click)="log(contact)"
+      >
         <td class="w-100 pv2 ph2 bb b--black-10 truncate gray ls-type">
           <i class="mdi" [ngClass]="{
             'mdi-domain': contact.contactType === contactType.COMPANY,

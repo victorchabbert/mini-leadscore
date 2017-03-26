@@ -4,10 +4,12 @@ import { ContactsComponent } from './contacts.component';
 import { ContactsService } from './contacts.service';
 import { PhonePipe } from './phone.pipe';
 import { EmailPipe } from './email.pipe';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    InfiniteScrollModule
   ],
   providers: [
     ContactsService

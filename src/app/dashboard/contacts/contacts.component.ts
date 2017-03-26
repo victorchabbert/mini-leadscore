@@ -22,17 +22,35 @@ import { Contact, gender, contactType } from './contacts.model';
   `]
 })
 export class ContactsComponent implements OnInit {
-  contacts: Contact[];
+  contacts = [];
   gender = gender;
   contactType = contactType;
+  contactCount = 0;
 
   constructor(private contactsService: ContactsService) { }
 
   ngOnInit() {
+    this.fetchContact();
+  }
+
+  addContacts(payload: any) {
+    const contacts = <Contact[]>payload.data;
+
+    if (payload.offset >= this.contactCount) {
+      this.contacts = this.contacts.concat(contacts);
+      this.contactCount += contacts.length;
+    }
+  }
+
+  fetchContact(offset?: number, limit?: number) {
     this.contactsService.getContacts({
       defaultOperator: defaultOperator.AND,
       filters: []
-    }).subscribe(res => this.contacts = <Contact[]>res.json().data);
+    }, offset, limit).subscribe(res => this.addContacts(res.json()));
+  }
+
+  onScrollDown() {
+    this.fetchContact(this.contactCount);
   }
 
   log(contact) {
