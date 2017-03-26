@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactsService } from './contacts.service';
 import { defaultOperator } from './filters.model';
-import { Contact, gender, contactType } from './contacts.model';
+import { Contact, gender, contactType, contactStatus } from './contacts.model';
 
 @Component({
   selector: 'ls-contacts',
@@ -23,9 +23,12 @@ import { Contact, gender, contactType } from './contacts.model';
 })
 export class ContactsComponent implements OnInit {
   contacts = [];
+  contactCount = 0;
+
+  // View helpers
   gender = gender;
   contactType = contactType;
-  contactCount = 0;
+  contactStatus = contactStatus;
 
   constructor(private contactsService: ContactsService) { }
 

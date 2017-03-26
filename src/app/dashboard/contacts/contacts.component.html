@@ -26,7 +26,16 @@
         class="flex row nowrap pointer hover-bg-near-white"
         (click)="log(contact)"
       >
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate gray ls-type">
+        <td
+          class="w-100 pv2 ph2 bb b--black-10 truncate ls-type"
+          [ngClass]="{
+          'green': contact.status === contactStatus.OK,
+          'light-gray': contact.status === contactStatus.INVALID,
+          'yellow': contact.status === contactStatus.DO_NOT_EMAIL,
+          'gold': contact.status === contactStatus.DO_NOT_CALL,
+          'dark-red': contact.status === contactStatus.DO_NOT_CONTACT
+          }"
+        >
           <i class="mdi" [ngClass]="{
             'mdi-domain': contact.contactType === contactType.COMPANY,
             'mdi-account': contact.contactType === contactType.PERSON
@@ -34,15 +43,17 @@
         </td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">{{ contact.displayName }}</td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">
-          <a class="navy no-underline underline-hover" href="mailto:{{ contact.emails | email }}">{{ contact.emails | email }}</a>
+          <a class="navy no-underline underline-hover pointer" href="mailto:{{ contact.emails | email }}">{{ contact.emails | email }}</a>
         </td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">
-          <a class="navy no-underline underline-hover" href="{{ contact.phoneNumbers | phone }}">{{ contact.phoneNumbers | phone }}</a>
+          <a class="navy no-underline underline-hover pointer" href="{{ contact.phoneNumbers | phone }}">{{ contact.phoneNumbers | phone }}</a>
         </td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate gray ls-gender">
           <i class="mdi" [ngClass]="{
             'mdi-gender-female': contact.gender === gender.MALE,
-            'mdi-gender-male': contact.gender === gender.FEMALE
+            'mdi-gender-male': contact.gender === gender.FEMALE,
+            'mdi-robot': contact.gender === gender.OTHER,
+            'mdi-help': contact.gender === gender.UNKNOWN
             }"></i>
           <span class="ma0 f6 fw6">{{ contact.gender && contact.gender[0] }}</span>
         </td>
