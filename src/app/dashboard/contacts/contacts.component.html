@@ -2,6 +2,7 @@
   <table cellspacing="0" class="collapse w-100" style="min-width: 100%; max-width: none">
     <thead class="db bb b--black-20">
       <tr class="flex row content-center nowrap pr3 gray">
+        <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-type"></th>
         <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Name</th>
         <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Email</th>
         <th class="w-100 ph2 h2 tl fw6 f6 truncate flex items-center ls-fmw">Phone</th>
@@ -11,19 +12,25 @@
     <!-- calc:(screen - header - table header) -->
     <tbody class="lh-copy db overflow-y-auto overflow-x-hidden" style="height: calc(100vh - 64px - 32px)">
       <tr *ngFor="let contact of contacts" class="flex row nowrap pointer hover-bg-near-white" (click)="log(contact)">
-        <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">{{ contact.first_name }} {{ contact.last_name }}</td>
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate gray ls-type">
+          <i class="mdi" [ngClass]="{
+            'mdi-domain': contact.contactType === contactType.COMPANY,
+            'mdi-account': contact.contactType === contactType.PERSON
+          }"></i>
+        </td>
+        <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">{{ contact.displayName }}</td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate ls-fmw">
-          <a class="navy no-underline underline-hover" href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+          <a class="navy no-underline underline-hover" href="mailto:{{ contact.emails | email }}">{{ contact.emails | email }}</a>
         </td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate navy ls-fmw">
-          <a class="navy no-underline underline-hover" href="{{ contact.phone }}">{{ contact.phone }}</a>
+          <a class="navy no-underline underline-hover" href="{{ contact.phoneNumbers | phone }}">{{ contact.phoneNumbers | phone }}</a>
         </td>
         <td class="w-100 pv2 ph2 bb b--black-10 truncate gray ls-gender">
           <i class="mdi" [ngClass]="{
-            'mdi-gender-female': contact.gender === 'Female',
-            'mdi-gender-male': contact.gender === 'Male'
+            'mdi-gender-female': contact.gender === gender.MALE,
+            'mdi-gender-male': contact.gender === gender.FEMALE
             }"></i>
-          <span class="ma0 f6 fw6">{{contact.gender === 'Female' ? 'F': 'M'}}</span>
+          <span class="ma0 f6 fw6">{{ contact.gender && contact.gender[0] }}</span>
         </td>
       </tr>
     </tbody>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactsService } from './contacts.service';
+import { defaultOperator } from './filters.model';
+import { Contact, gender, contactType } from './contacts.model';
 
 @Component({
   selector: 'ls-contacts',
@@ -12,21 +15,24 @@ import { Component, OnInit } from '@angular/core';
       padding-right: 15px;
       text-align: center;
     }
+    .ls-type {
+      width: 50px;
+      text-align: center;
+    }
   `]
 })
 export class ContactsComponent implements OnInit {
-  contacts = [];
-  constructor() { }
+  contacts: Contact[];
+  gender = gender;
+  contactType = contactType;
+
+  constructor(private contactsService: ContactsService) { }
 
   ngOnInit() {
-    this.fetch(data => this.contacts = data);
-  }
-
-  fetch(cb) {
-    const req = new XMLHttpRequest();
-    req.open('GET', 'assets/MOCK_DATA.json');
-    req.onload = () => cb(JSON.parse(req.response));
-    req.send();
+    this.contactsService.getContacts({
+      defaultOperator: defaultOperator.AND,
+      filters: []
+    }).subscribe(res => this.contacts = <Contact[]>res.json().data);
   }
 
   log(contact) {
