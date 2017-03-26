@@ -6,25 +6,12 @@ import { Contact, gender, contactType, contactStatus } from './contacts.model';
 @Component({
   selector: 'ls-contacts',
   templateUrl: './contacts.component.html',
-  styles: [`
-    .ls-fmw {
-      flex: 1 0 100px;
-    }
-    .ls-gender {
-      width: 70px;
-      padding-right: 15px;
-      text-align: center;
-    }
-    .ls-type {
-      width: 50px;
-      text-align: center;
-    }
-  `]
+  styleUrls: ['./spinners.component.css', './contacts.component.css'],
 })
 export class ContactsComponent implements OnInit {
   contacts = [];
   contactCount = 0;
-
+  loading = true;
   // View helpers
   gender = gender;
   contactType = contactType;
@@ -33,6 +20,7 @@ export class ContactsComponent implements OnInit {
   constructor(private contactsService: ContactsService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.fetchContact();
   }
 
@@ -49,10 +37,14 @@ export class ContactsComponent implements OnInit {
     this.contactsService.getContacts({
       defaultOperator: defaultOperator.AND,
       filters: []
-    }, offset, limit).subscribe(res => this.addContacts(res.json()));
+    }, offset, limit).subscribe(res => {
+      this.addContacts(res.json());
+      this.loading = false;
+    });
   }
 
   onScrollDown() {
+    this.loading = true;
     this.fetchContact(this.contactCount);
   }
 

@@ -1,4 +1,4 @@
-<div class="w-100 h-100 overflow-y-hidden overflow-x-auto">
+<div class="w-100 h-100 overflow-y-hidden overflow-x-auto relative">
   <table cellspacing="0" class="collapse w-100" style="min-width: 100%; max-width: none">
     <thead class="db bb b--black-20">
       <tr class="flex row content-center nowrap pr3 gray">
@@ -60,4 +60,17 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="absolute absolute--fill flex flex-columns justify-center items-center" style="z-index: -5">
+    <div *ngIf="loading && contactCount === 0" class="sk-chasing-dots">
+      <div class="sk-child sk-dot1 bg-blue"></div>
+      <div class="sk-child sk-dot2 bg-blue"></div>
+    </div>
+    <h2 *ngIf="!loading && contactCount === 0" class="f2 lh-copy fw6 light-silver">No Contacts</h2>
+    <div *ngIf="loading && contactCount > 0" class="self-end z-max mb3 sk-three-bounce flex justify-center">
+      <div class="sk-child z-max sk-bounce1 bg-blue"></div>
+      <div class="sk-child z-max sk-bounce2 bg-blue"></div>
+      <div class="sk-child z-max sk-bounce3 bg-blue"></div>
+    </div>
+  </div>
 </div>

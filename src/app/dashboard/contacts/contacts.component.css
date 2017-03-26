@@ -1,0 +1,12 @@
+.ls-fmw {
+  flex: 1 0 100px;
+}
+.ls-gender {
+  width: 70px;
+  padding-right: 15px;
+  text-align: center;
+}
+.ls-type {
+  width: 50px;
+  text-align: center;
+}
