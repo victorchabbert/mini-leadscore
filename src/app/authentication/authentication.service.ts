@@ -82,19 +82,25 @@ export class AuthenticationService implements CanActivate {
 
   login(loginData: LoginData): Observable<Response> {
     const obs = this.post(this._options.loginPath, JSON.stringify(loginData));
-    obs.subscribe(res => {
-      const data = res.json();
-      this.setAuthData({
-        token: data.token.authToken,
-        expiry: data.token.expires,
-        firebaseToken: data.firebaseAuthToken
-      });
-    });
+    obs.subscribe(
+      res => {
+        const data = res.json();
+        this.setAuthData({
+          token: data.token.authToken,
+          expiry: data.token.expires,
+          firebaseToken: data.firebaseAuthToken
+        });
+      },
+      error => null
+    );
 
     return obs;
   }
 
   logout(): Observable<Response> {
+    if (!this.loggedIn()) {
+      return;
+    }
     const obs = this.post(this._options.logoutPath, JSON.stringify({
       authToken: this.currentAuthData.token
     }));
@@ -130,7 +136,7 @@ export class AuthenticationService implements CanActivate {
    */
   get(url: string, options?: Object): Observable<Response> {
     return this.request(Object.assign({
-      url: `${this.getApiPath()}${url}`,
+      url: this.getApiPath() + url,
       method: RequestMethod.Get,
     }, options));
   }
@@ -145,7 +151,7 @@ export class AuthenticationService implements CanActivate {
 
   put(url: string, body: any, options?: Object): Observable<Response> {
     return this.request(Object.assign({
-      url: `${this.getApiPath()}${url}`,
+      url: this.getApiPath() + url,
       method: RequestMethod.Put,
       body
     }, options));
@@ -153,14 +159,14 @@ export class AuthenticationService implements CanActivate {
 
   delete(url: string, options?: Object): Observable<Response> {
     return this.request(Object.assign({
-      url: `${this.getApiPath()}${url}`,
+      url: this.getApiPath() + url,
       method: RequestMethod.Delete,
     }, options));
   }
 
   patch(url: string, body: any, options?: Object): Observable<Response> {
     return this.request(Object.assign({
-      url: `${this.getApiPath()}${url}`,
+      url: this.getApiPath() + url,
       method: RequestMethod.Patch,
       body
     }, options));
