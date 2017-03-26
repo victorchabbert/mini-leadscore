@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  API_BASE: '',
-  API_PATH: '',
+  API_BASE: null,
+  API_PATH: null,
 };
