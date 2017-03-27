@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  API_BASE: 'http://localhost:1337/internal-api-staging-lb.interact.io',
+  API_BASE: 'https://internal-api-staging-lb.interact.io',
   API_PATH: 'v2',
 };
